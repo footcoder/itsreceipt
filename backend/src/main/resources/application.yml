@@ -1,0 +1,7 @@
+# java -jar -Dspring.profiles.active={development|production}
+# application-development.yml | application-production.yml
+spring:
+  profiles:
+    active: development
+#    active: production
+
