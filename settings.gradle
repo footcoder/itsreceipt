@@ -1,4 +1,4 @@
 rootProject.name = 'receipt'
 
 include 'backend'
-//include 'frontend'
+include 'frontend'
