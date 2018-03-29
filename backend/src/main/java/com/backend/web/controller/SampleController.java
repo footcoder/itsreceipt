@@ -12,7 +12,7 @@ public class SampleController {
 
     @GetMapping(value = "/hello")
     public String sampleController(){
-        return "Hello World one more";
+        return "Hello World last";
     }
 
     @GetMapping(value = "/receipts")
