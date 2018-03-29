@@ -1,7 +1,11 @@
 package com.backend.web.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
 
 @RestController
 public class SampleController {
@@ -11,4 +15,8 @@ public class SampleController {
         return "Hello World one more";
     }
 
+    @GetMapping(value = "/receipts")
+    public ResponseEntity receipts(){
+        return new ResponseEntity(new HashMap<String, String>(), HttpStatus.OK);
+    }
 }
