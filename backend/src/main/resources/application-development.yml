@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     platform: mysql
-    url: jdbc:mysql://45.119.146.45:3306/itsreceipt?useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://45.119.146.45:3306/Itsreceipt?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: footcoder
     password: vntzhejWkd321!
     driverClassName: com.mysql.jdbc.Driver
@@ -14,3 +14,8 @@ spring:
       max-idle: 2
       max-active: 2
       max-wait: 10000
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    com.colondee.simkoong.insight: DEBUG

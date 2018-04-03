@@ -11,6 +11,6 @@ spring:
     tomcat:
       initial-size: 1
       min-idle: 1
-      max-idle: 2
-      max-active: 2
+      max-idle: 100
+      max-active: 100
       max-wait: 10000
