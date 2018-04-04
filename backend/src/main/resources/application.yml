@@ -5,3 +5,8 @@ spring:
     active: development
 #    active: production
 
+mybatis:
+  type-aliases-package: com.backend.web.domain;
+  mapper-locations: classpath:mappers/*.xml
+  configuration:
+    default-statement-timeout: 120
