@@ -6,7 +6,7 @@
       insert into users
       (email, password, moneyType)
       values
-      (#{email}, #{password}, 1)
+      (#{email}, #{password}, #{moneyType})
     </insert>
 
 
