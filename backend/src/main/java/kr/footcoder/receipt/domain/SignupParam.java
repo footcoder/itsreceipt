@@ -8,6 +8,6 @@ public class SignupParam {
 
     private String email;
     private String password;
-    private Integer String;
+    private String moneyType;
 
 }

@@ -2,33 +2,33 @@ package kr.footcoder.receipt.controller;
 
 import kr.footcoder.receipt.domain.SignupParam;
 import kr.footcoder.receipt.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+@AllArgsConstructor
 @RequestMapping("/user")
 @RestController
-public class UserController {
+public class UserController extends BaseController {
 
+    @GetMapping(value = "/hello")
+    public String hello() {
+
+        return "hello world";
+    }
 
     private final UserService userService;
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-
     @PostMapping(value = "/sign-up")
-    public String signupUser(@RequestBody SignupParam signupParam){
+    public ModelMap signupUser(@RequestBody SignupParam signupParam) {
 
         userService.signupUser(signupParam);
 
-        return "";
+        return success();
     }
 
-    @GetMapping(value = "/hello")
-    public String sampleHello(){
-
-
+    @GetMapping(value = "/sign-in")
+    public String signinUser() {
 
         return "hello world";
     }

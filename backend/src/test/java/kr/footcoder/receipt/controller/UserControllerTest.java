@@ -3,6 +3,7 @@ package kr.footcoder.receipt.controller;
 
 import kr.footcoder.receipt.controller.rest.UserControllerRest;
 import kr.footcoder.receipt.domain.SignupParam;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.*;
 import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-
+@Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @WebAppConfiguration
@@ -36,8 +37,9 @@ public class UserControllerTest {
     public void setUp() {
         this.mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
         this.signupParam = new SignupParam();
-        signupParam.setEmail("test@tset.com");
+        signupParam.setEmail("signinUser@tset.com");
         signupParam.setPassword("1111");
+        signupParam.setMoneyType("2");
 
         userControllerRest = new UserControllerRest(mvc, signupParam);
     }
@@ -48,6 +50,7 @@ public class UserControllerTest {
         HttpServletResponse response = userControllerRest.signinUser();
 
         assertThat(response.getStatus(), is(HttpStatus.OK.value()));
+
     }
 
     @Test

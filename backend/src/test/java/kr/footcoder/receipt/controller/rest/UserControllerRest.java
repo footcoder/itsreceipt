@@ -24,7 +24,7 @@ public class UserControllerRest {
         ObjectMapper objectMapper = new ObjectMapper();
 
         return this.mvc.perform(
-                post("/user/sign-in")
+                post("/user/sign-up")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(signupParam))
         ).andReturn().getResponse();
