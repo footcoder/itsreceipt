@@ -10,8 +10,11 @@ export class UserService {
 
   constructor(private  http:HttpClient) { }
 
-  signIn(email, password){
-    return this.http.post('/user/sign-in',{email: email, password: password});
+  signIn(data){
+    return this.http.post('http://footcoder.niee.kr:8080/user/sign-in',data);
   }
 
+  signup(data){
+    return this.http.post('http://footcoder.niee.kr:8080/user/sign-up',data);
+  }
 }

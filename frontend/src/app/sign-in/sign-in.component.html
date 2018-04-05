@@ -2,13 +2,13 @@
   <img src="/assets/logo.png" class="rounded" alt="...">
 </div>
 <div class="margin40"></div>
-<form>
+<form id="signinForm">
   <div class="form-group">
-    <input type="email" class="form-control" #email required aria-describedby="emailHelp" placeholder="Enter email">
+    <input type="email" class="form-control" [ngClass]="{'border-danger':emailError}" #email required aria-describedby="emailHelp" placeholder="Enter email">
     <app-message *ngIf="emailError" [message]="emailErrorMessage"></app-message>
   </div>
   <div class="form-group">
-    <input type="password" class="form-control" #password required placeholder="Password">
+    <input type="password" class="form-control" [ngClass]="{'border-danger':passwordError}" #password required minlength="8" placeholder="Password">
     <app-message *ngIf="passwordError" [message]="passwordErrorMessage"></app-message>
   </div>
   <div class="form-check">
