@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.backend.web.mapper.UserMapper">
+<mapper namespace="kr.footcoder.receipt.mapper.UserMapper">
 
-    <insert id="signinUser" parameterType="com.backend.web.domain.SignupParam">
+    <insert id="signupUser" parameterType="kr.footcoder.receipt.domain.SignupParam">
       insert into users
       (email, password, moneyType)
       values
-      (#{email}, #{password}, 1)
+      (#{email}, #{password}, #{moneyType})
     </insert>
 
 
