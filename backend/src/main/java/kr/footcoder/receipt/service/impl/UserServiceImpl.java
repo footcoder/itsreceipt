@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void signinUser(SignupParam signupParam) {
-        userMapper.signinUser(signupParam);
+    public void signupUser(SignupParam signupParam) {
+        userMapper.signupUser(signupParam);
     }
 }

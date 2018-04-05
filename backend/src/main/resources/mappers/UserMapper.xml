@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.footcoder.receipt.mapper.UserMapper">
 
-    <insert id="signinUser" parameterType="kr.footcoder.receipt.domain.SignupParam">
+    <insert id="signupUser" parameterType="kr.footcoder.receipt.domain.SignupParam">
       insert into users
       (email, password, moneyType)
       values

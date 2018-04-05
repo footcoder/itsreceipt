@@ -18,9 +18,9 @@ public class UserController {
     }
 
     @PostMapping(value = "/sign-up")
-    public String signinUser(@RequestBody SignupParam signupParam){
+    public String signupUser(@RequestBody SignupParam signupParam){
 
-        userService.signinUser(signupParam);
+        userService.signupUser(signupParam);
 
         return "";
     }

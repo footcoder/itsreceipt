@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface UserMapper {
 
-    void signinUser(SignupParam signupParam);
+    void signupUser(SignupParam signupParam);
 
 }
