@@ -1,18 +1,18 @@
 <form>
   <div class="form-group">
     <label for="email">EMAIL</label>
-    <input type="email" class="form-control" id="email" #email required aria-describedby="emailHelp"
+    <input type="email" class="form-control" id="email" [ngClass]="{'border-danger':emailError}" #email required aria-describedby="emailHelp"
            placeholder="Enter email">
     <app-message *ngIf="emailError" [message]="emailErrorMessage"></app-message>
   </div>
   <div class="form-group">
     <label for="password">PASSWORD</label>
-    <input type="password" class="form-control" #password id="password" required placeholder="Password">
+    <input type="password" class="form-control" [ngClass]="{'border-danger':passwordError}" minlength="8" #password id="password" required placeholder="Password">
     <app-message *ngIf="passwordError" [message]="passwordErrorMessage"></app-message>
   </div>
   <div class="form-group">
     <label for="password_check">PASSWORD CHECK</label>
-    <input type="password" class="form-control" #password_check required id="password_check" placeholder="Password">
+    <input type="password" class="form-control" [ngClass]="{'border-danger':passwordCheckError}" minlength="8" #password_check required id="password_check" placeholder="Password">
     <app-message *ngIf="passwordCheckError" [message]="passwordCheckErrorMessage"></app-message>
   </div>
   <div class="form-group">
