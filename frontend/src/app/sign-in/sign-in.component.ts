@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {UserService} from '../user.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-sign-in',
@@ -29,12 +30,12 @@ export class SignInComponent implements OnInit {
     //TODO: 비번 RSA 암호화 필요
 
     if(!this.emailError && !this.passwordError){
-      alert('Sign In');
-      /*this.userService.signIn(this.email.nativeElement.value, this.password.nativeElement.value).subscribe(
+      console.log(JSON.stringify($('#signinForm').serialize()))
+      this.userService.signIn(JSON.stringify($('#signinForm').serialize())).subscribe(
         result => console.log(result),
         error => console.log(error),
         () => console.log('signin complate')
-      );*/
+      );
     }
   }
 }

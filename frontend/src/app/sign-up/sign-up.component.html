@@ -1,32 +1,36 @@
 <form>
   <div class="form-group">
-    <label for="exampleInputEmail1">EMAIL</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+    <label for="email">EMAIL</label>
+    <input type="email" class="form-control" id="email" #email required aria-describedby="emailHelp"
            placeholder="Enter email">
+    <app-message *ngIf="emailError" [message]="emailErrorMessage"></app-message>
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword">PASSWORD</label>
-    <input type="password" class="form-control" id="exampleInputPassword" placeholder="Password">
+    <label for="password">PASSWORD</label>
+    <input type="password" class="form-control" #password id="password" required placeholder="Password">
+    <app-message *ngIf="passwordError" [message]="passwordErrorMessage"></app-message>
   </div>
   <div class="form-group">
-    <label for="exampleInputPasswordCheck">PASSWORD CHECK</label>
-    <input type="password" class="form-control" id="exampleInputPasswordCheck" placeholder="Password">
+    <label for="password_check">PASSWORD CHECK</label>
+    <input type="password" class="form-control" #password_check required id="password_check" placeholder="Password">
+    <app-message *ngIf="passwordCheckError" [message]="passwordCheckErrorMessage"></app-message>
   </div>
   <div class="form-group">
-    <label for="exampleInputPasswordCheck">MONEY TYPE</label>
+    <label>MONEY TYPE</label>
     <div class="form-check">
-      <input class="form-check-input" type="radio" name="exampleRadios" id="korea" value="option1" checked>
+      <input class="form-check-input" type="radio" name="type" #korea id="korea" value="1">
       <label class="form-check-label" for="korea">
         원
       </label>
     </div>
     <div class="form-check">
-      <input class="form-check-input" type="radio" name="exampleRadios" id="usd" value="option1" checked>
+      <input class="form-check-input" type="radio" name="type" #usd id="usd" value="2">
       <label class="form-check-label" for="usd">
         $
       </label>
     </div>
+    <app-message *ngIf="typeError" [message]="typeErrorMessage"></app-message>
   </div>
-  <a routerLink="/sign-up" class="btn btn-block btn-outline-success">Sign Up</a>
+  <a (click)="signup()" class="btn btn-block btn-outline-success">Sign Up</a>
   <a routerLink="/sign-in" class="btn btn-block btn-outline-danger">Cancle</a>
 </form>

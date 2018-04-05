@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+import { FormBuilder } from '@angular/forms';
+
 
 import { AppComponent } from './app.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -23,7 +25,7 @@ import { UserService } from './user.service';
     HttpClientJsonpModule
   ],
   providers: [
-    UserService
+    UserService, FormBuilder
   ],
   bootstrap: [AppComponent]
 })
