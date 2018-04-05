@@ -14,7 +14,7 @@ export class UserService {
     return this.http.post('http://footcoder.niee.kr:8080/user/sign-in',data);
   }
 
-  signup(){
-    return this.http.post('http://localhost:8080/user/sign-up',data);
+  signup(data){
+    return this.http.post('http://footcoder.niee.kr:8080/user/sign-up',data);
   }
 }

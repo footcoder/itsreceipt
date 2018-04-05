@@ -39,10 +39,17 @@ export class SignUpComponent implements OnInit {
     this.passwordCheckErrorMessage = this.passwordCheck.nativeElement.validationMessage;
     if(this.typeError){
       this.typeErrorMessage = 'DO NOT SELECT MONEY TYPE';
+    }else{
+
     }
 
     if(!this.emailError && !this.passwordError && !this.typeError){
-      this.userService.signup().subscribe(
+      let data = {
+        email: this.email.nativeElement.value,
+        password: this.password.nativeElement.value,
+        type: this.korea.nativeElement.checked? 1:2
+      }
+      this.userService.signup(data).subscribe(
         result => console.log(result),
         err => console.log(err),
         () => console.log('signup finish')

@@ -30,8 +30,7 @@ export class SignInComponent implements OnInit {
     //TODO: 비번 RSA 암호화 필요
 
     if(!this.emailError && !this.passwordError){
-      console.log(JSON.stringify($('#signinForm').serialize()))
-      this.userService.signIn(JSON.stringify($('#signinForm').serialize())).subscribe(
+      this.userService.signIn({email: this.email.nativeElement.value, password : this.password.nativeElement.value}).subscribe(
         result => console.log(result),
         error => console.log(error),
         () => console.log('signin complate')
