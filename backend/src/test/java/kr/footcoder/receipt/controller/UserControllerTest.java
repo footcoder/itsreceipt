@@ -1,8 +1,8 @@
-package com.backend.web.controller;
+package kr.footcoder.receipt.controller;
 
 
-import com.backend.web.controller.rest.UserControllerRest;
-import com.backend.web.domain.SignupParam;
+import kr.footcoder.receipt.controller.rest.UserControllerRest;
+import kr.footcoder.receipt.domain.SignupParam;
 import org.junit.*;
 import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.Autowired;

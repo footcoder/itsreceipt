@@ -1,6 +1,6 @@
-package com.backend.web.mapper;
+package kr.footcoder.receipt.mapper;
 
-import com.backend.web.domain.SignupParam;
+import kr.footcoder.receipt.domain.SignupParam;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

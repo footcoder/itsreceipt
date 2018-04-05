@@ -1,8 +1,8 @@
-package com.backend.web.service.impl;
+package kr.footcoder.receipt.service.impl;
 
-import com.backend.web.domain.SignupParam;
-import com.backend.web.mapper.UserMapper;
-import com.backend.web.service.UserService;
+import kr.footcoder.receipt.domain.SignupParam;
+import kr.footcoder.receipt.mapper.UserMapper;
+import kr.footcoder.receipt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

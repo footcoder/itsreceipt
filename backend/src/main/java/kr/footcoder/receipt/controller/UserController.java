@@ -1,11 +1,10 @@
-package com.backend.web.controller;
+package kr.footcoder.receipt.controller;
 
-import com.backend.web.domain.SignupParam;
-import com.backend.web.service.UserService;
+import kr.footcoder.receipt.domain.SignupParam;
+import kr.footcoder.receipt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 @RequestMapping("/user")
 @RestController
 public class UserController {
@@ -18,7 +17,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping(value = "/sign-in")
+    @PostMapping(value = "/sign-up")
     public String signinUser(@RequestBody SignupParam signupParam){
 
         userService.signinUser(signupParam);

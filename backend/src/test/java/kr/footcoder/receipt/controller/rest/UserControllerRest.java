@@ -1,6 +1,6 @@
-package com.backend.web.controller.rest;
+package kr.footcoder.receipt.controller.rest;
 
-import com.backend.web.domain.SignupParam;
+import kr.footcoder.receipt.domain.SignupParam;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;

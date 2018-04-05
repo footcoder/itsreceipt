@@ -1,4 +1,4 @@
-package com.backend.web.domain;
+package kr.footcoder.receipt.domain;
 
 import lombok.Data;
 
