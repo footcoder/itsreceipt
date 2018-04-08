@@ -10,4 +10,11 @@
     </insert>
 
 
+    <select id="getExistUser" parameterType="java.lang.String" resultType="int">
+        select
+                count(*) cnt
+        from    users
+        where   email = #{email}
+    </select>
+
 </mapper>

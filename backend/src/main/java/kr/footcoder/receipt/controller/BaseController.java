@@ -24,7 +24,7 @@ public class BaseController {
 
         ModelMap error = new ModelMap();
         error.addAttribute("status", "F");
-        error.addAttribute("code", errorCode.getErrorMessage());
+        error.addAttribute("code", errorCode.name());
         error.addAttribute("message", errorCode.getErrorMessage());
 
         return error;
