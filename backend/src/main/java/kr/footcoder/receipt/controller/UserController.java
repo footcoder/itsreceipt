@@ -32,4 +32,5 @@ public class UserController extends BaseController {
 
         return "hello world";
     }
+
 }
