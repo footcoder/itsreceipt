@@ -14,6 +14,8 @@ spring:
       max-idle: 2
       max-active: 2
       max-wait: 10000
+    hikari:
+      connection-init-sql: 1
 
 logging:
   level:
