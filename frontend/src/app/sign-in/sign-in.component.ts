@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {UserService} from '../user.service';
 import * as $ from 'jquery';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sign-in',
@@ -16,7 +17,7 @@ export class SignInComponent implements OnInit {
   emailError:boolean;
   passwordError:boolean;
 
-  constructor(private userService:UserService) { }
+  constructor(private userService:UserService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -30,10 +31,9 @@ export class SignInComponent implements OnInit {
     //TODO: 비번 RSA 암호화 필요
 
     if(!this.emailError && !this.passwordError){
-      this.userService.signIn({email: this.email.nativeElement.value, password : this.password.nativeElement.value}).subscribe(
-        result => console.log(result),
-        error => console.log(error),
-        () => console.log('signin complate')
+      this.userService.signIn(
+        {email: this.email.nativeElement.value, password : this.password.nativeElement.value},
+        () => this.router.navigateByUrl("/")
       );
     }
   }

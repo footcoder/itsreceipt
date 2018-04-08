@@ -10,6 +10,4 @@ public interface UserMapper {
 
     void signupUser(SignupParam signupParam);
 
-    int getExistUser(String email);
-
 }
