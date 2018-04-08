@@ -17,7 +17,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void signupUser(SignupParam signupParam) {
-        userMapper.signupUser(signupParam);
+    public boolean signupUser(SignupParam signupParam) {
+
+        int result = userMapper.getExistUser(signupParam.getEmail());
+
+        if(result == 0){
+            userMapper.signupUser(signupParam);
+            return true;
+        }
+
+        return false;
+
     }
 }

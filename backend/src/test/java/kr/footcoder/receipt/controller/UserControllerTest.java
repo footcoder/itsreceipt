@@ -54,6 +54,14 @@ public class UserControllerTest {
     }
 
     @Test
+    public void 이미가입된_회원확인() throws Exception {
+        HttpServletResponse response = userControllerRest.signinUser();
+
+        assertThat(response.getStatus(), is(HttpStatus.OK.value()));
+
+    }
+
+    @Test
     public void 통신테스트()throws Exception {
 
         HttpServletResponse response = userControllerRest.hello();

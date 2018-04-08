@@ -1,10 +1,13 @@
 package kr.footcoder.receipt.controller;
 
 import kr.footcoder.receipt.domain.SignupParam;
+import kr.footcoder.receipt.enumclass.ErrorCode;
 import kr.footcoder.receipt.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @AllArgsConstructor
 @RequestMapping("/user")
@@ -22,15 +25,32 @@ public class UserController extends BaseController {
     @PostMapping(value = "/sign-up")
     public ModelMap signupUser(@RequestBody SignupParam signupParam) {
 
-        userService.signupUser(signupParam);
+        if(!userService.signupUser(signupParam)){
+            return error(ErrorCode.ERR0002);
+        }
 
         return success();
     }
 
+/*
+
+    @RequestMapping("/resource")
+    public Map<String, Object> home() {
+        Map<String, Object> model = new HashMap<String, Object>();
+        model.put("id", UUID.randomUUID().toString());
+        model.put("content", "Hello World");
+        return model;
+    }
+
+*/
+
+
     @GetMapping(value = "/sign-in")
-    public String signinUser() {
+    public String signinUser(HttpServletRequest request) {
+
 
         return "hello world";
     }
+
 
 }
