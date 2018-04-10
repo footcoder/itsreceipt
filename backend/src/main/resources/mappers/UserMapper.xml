@@ -4,9 +4,9 @@
 
     <insert id="signupUser" parameterType="kr.footcoder.receipt.domain.SignupParam">
       insert into users
-      (email, password, moneyType)
+      (email, password, role, moneyType)
       values
-      (#{email}, #{password}, #{moneyType})
+      (#{email}, #{password}, 'ROLE_USER', #{moneyType})
     </insert>
 
 
@@ -15,6 +15,14 @@
                 count(*) cnt
         from    users
         where   email = #{email}
+    </select>
+
+    <select id="findUserByEmail" parameterType="java.lang.String" resultType="User">
+        select email
+              , password
+              , role
+        from users
+        where email = #{email}
     </select>
 
 </mapper>

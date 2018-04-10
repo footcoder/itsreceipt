@@ -32,19 +32,6 @@ public class UserController extends BaseController {
         return success();
     }
 
-/*
-
-    @RequestMapping("/resource")
-    public Map<String, Object> home() {
-        Map<String, Object> model = new HashMap<String, Object>();
-        model.put("id", UUID.randomUUID().toString());
-        model.put("content", "Hello World");
-        return model;
-    }
-
-*/
-
-
     @GetMapping(value = "/sign-in")
     public String signinUser(HttpServletRequest request) {
 
