@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService {
             throw new UsernameNotFoundException("No user found with user email");
         }
 
-        user.setAuthorities(getAuthorities(user.getRole()));
-        return user;
+
+        return new User(user.getEmail(), user.getPassword(), this.getAuthorities(user.getRole()));
     }
 
     private Collection<GrantedAuthority> getAuthorities(String role) {

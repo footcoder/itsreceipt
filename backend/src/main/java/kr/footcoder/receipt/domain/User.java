@@ -19,6 +19,12 @@ public class User implements UserDetails {
     private boolean isEnabled;
     private Collection<? extends GrantedAuthority> authorities;
 
+    public User(String email, String password, Collection<GrantedAuthority> authorities) {
+        this.email = email;
+        this.password = password;
+        this.authorities = authorities;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
