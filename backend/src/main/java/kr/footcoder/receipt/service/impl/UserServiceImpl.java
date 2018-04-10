@@ -2,6 +2,7 @@ package kr.footcoder.receipt.service.impl;
 
 import kr.footcoder.receipt.domain.SignupParam;
 import kr.footcoder.receipt.domain.User;
+import kr.footcoder.receipt.domain.UserSession;
 import kr.footcoder.receipt.mapper.UserMapper;
 import kr.footcoder.receipt.service.UserService;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     public UserDetails loadUserByUsername(String email){
 
-        User user = userMapper.findUserByEmail(email);
+        UserSession user = userMapper.findUserByEmail(email);
 
         if (user == null) {
             throw new UsernameNotFoundException("No user found with user email");

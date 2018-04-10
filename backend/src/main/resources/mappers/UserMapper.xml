@@ -17,7 +17,7 @@
         where   email = #{email}
     </select>
 
-    <select id="findUserByEmail" parameterType="java.lang.String" resultType="User">
+    <select id="findUserByEmail" parameterType="java.lang.String" resultType="UserSession">
         select email
               , password
               , role
