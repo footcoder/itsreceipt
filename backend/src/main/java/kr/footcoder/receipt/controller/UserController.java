@@ -31,13 +31,15 @@ public class UserController extends BaseController {
 
         return success();
     }
+/*
 
-    @GetMapping(value = "/sign-in")
+    @PostMapping(value = "/sign-in")
     public String signinUser(HttpServletRequest request) {
 
 
         return "hello world";
     }
+*/
 
 
 }

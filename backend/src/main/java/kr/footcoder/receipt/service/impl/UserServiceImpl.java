@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,10 +24,14 @@ public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
 
+    public UserDetails loadUserByUsername(String email){
 
-    public UserDetails loadUserByUsername(String username){
+        User user = userMapper.findUserByEmail(email);
 
-        User user = userMapper.findUserByEmail(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("No user found with user email");
+        }
+
         user.setAuthorities(getAuthorities(user.getRole()));
         return user;
     }
