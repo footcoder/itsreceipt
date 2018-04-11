@@ -37,8 +37,8 @@ public class UserControllerTest {
     public void setUp() {
         this.mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
         this.signupParam = new SignupParam();
-        signupParam.setEmail("signinUser2@tset.com");
-        signupParam.setPassword("aaaa1111");
+        signupParam.setEmail("signinUser3@tset.com");
+        signupParam.setPassword("123123123");
         signupParam.setMoneyType("2");
 
         userControllerRest = new UserControllerRest(mvc, signupParam);

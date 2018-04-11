@@ -5,6 +5,7 @@ import kr.footcoder.receipt.handler.AuthSuccessHandler;
 import kr.footcoder.receipt.handler.HttpLogoutSuccessHandler;
 import kr.footcoder.receipt.service.UserService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+@Slf4j
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
@@ -56,6 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
         auth.userDetailsService(this.userService).passwordEncoder(new BCryptPasswordEncoder());
 
     }
