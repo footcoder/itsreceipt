@@ -13,26 +13,12 @@ export class UserService {
   constructor(private  http: HttpClient) {
   }
 
-  signIn(data, callback) {
-    const headers = new HttpHeaders(data ? {
-        authorization: 'Basic ' + btoa(data.email + ':' + data.password)
-      } : {});
+  signIn(data) {
+    let headers: HttpHeaders = new HttpHeaders({
+      contentType: "application/x-www-form-urlencoded"
+    });
 
-    this.http.post('http://footcoder.niee.kr:8080/user/sign-in', {headers: headers})
-      .subscribe(
-        response => {
-          if (response['email']) {
-            this.authenticated = true;
-          } else {
-            this.authenticated = false;
-          }
-          return callback && callback();
-        },
-        err =>{
-          cnosole.log(err);
-        },
-        () => console.log('sign-in finished')
-      );
+    return this.http.post('http://footcoder.niee.kr:8080/user/sign-in', data, {headers: headers});
 
     // let username: string = data.email;
     // let password: string = data.passwordError;
