@@ -14,11 +14,7 @@ export class UserService {
   }
 
   signIn(data) {
-    let headers: HttpHeaders = new HttpHeaders({
-      contentType: "application/x-www-form-urlencoded"
-    });
-
-    return this.http.post('http://footcoder.niee.kr:8080/user/sign-in', data, {headers: headers});
+    return this.http.post('http://footcoder.niee.kr:8080/user/sign-in', data);
 
     // let username: string = data.email;
     // let password: string = data.passwordError;
