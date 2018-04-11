@@ -8,9 +8,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * Created by niee on 2018. 4. 5..
  */
-@Configuration
+//@Configuration
 public class CorsFilter {
-    @Bean
+    //@Bean
     public WebMvcConfigurer webMvcConfigurer(){
         return new WebMvcConfigurer(){
             @Override
