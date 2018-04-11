@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-const httpOptions = {
+/*const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
-}
+}*/
 
 @Injectable()
 export class UserService {
@@ -14,7 +14,10 @@ export class UserService {
   }
 
   signIn(data) {
-    return this.http.post('http://footcoder.niee.kr:8080/user/sign-in', data);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
+    }
+    return this.http.post('http://footcoder.niee.kr:8080/user/sign-in', data, httpOptions);
 
     // let username: string = data.email;
     // let password: string = data.passwordError;
