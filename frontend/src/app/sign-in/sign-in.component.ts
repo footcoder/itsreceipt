@@ -32,9 +32,12 @@ export class SignInComponent implements OnInit {
 
     if(!this.emailError && !this.passwordError){
       this.userService.signIn(
-        {email: this.email.nativeElement.value, password : this.password.nativeElement.value},
-        () => this.router.navigateByUrl("/")
-      );
+        {email: this.email.nativeElement.value, password : this.password.nativeElement.value})
+        .subscribe(
+          result => alert(result),
+          err => console.log(err),
+          () => console.log('sign-in finished')
+        );
     }
   }
 }

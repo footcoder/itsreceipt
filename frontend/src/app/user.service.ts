@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-const httpOptions = {
+/*const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
-}
+}*/
 
 @Injectable()
 export class UserService {
@@ -13,27 +13,11 @@ export class UserService {
   constructor(private  http: HttpClient) {
   }
 
-  signIn(data, callback) {
-    const headers = new HttpHeaders(data ? {
-        authorization: 'Basic ' + btoa(data.email + ':' + data.password)
-      } : {});
-
-    //this.http.post('http://footcoder.niee.kr:8080/user/sign-in', {headers: headers})
-    this.http.post('http://localhost:8080/user/sign-in', {headers: headers})
-      .subscribe(
-        response => {
-          if (response['email']) {
-            this.authenticated = true;
-          } else {
-            this.authenticated = false;
-          }
-          return callback && callback();
-        },
-        err =>{
-          console.log(err);
-        },
-        () => console.log('sign-in finished')
-      );
+  signIn(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
+    }
+    return this.http.post('http://footcoder.niee.kr:8080/user/sign-in', data, httpOptions);
 
     // let username: string = data.email;
     // let password: string = data.passwordError;
@@ -44,7 +28,6 @@ export class UserService {
   }
 
   signup(data) {
-    //return this.http.post('http://footcoder.niee.kr:8080/user/sign-up', data);
-    return this.http.post('http://localhost:8080/user/sign-up', data);
+    return this.http.post('http://footcoder.niee.kr:8080/user/sign-up', data);
   }
 }
