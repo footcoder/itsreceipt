@@ -4,8 +4,22 @@
     <img src="/assets/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
     It's Receipt
   </a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li #mainLink class="nav-item">
+        <a class="nav-link" (click)="routerChange('main')">Main <span class="sr-only">(14)</span></a>
+      </li>
+      <li #signinLink class="nav-item">
+        <a class="nav-link" (click)="routerChange('sign-in')">Sign-in</a>
+      </li>
+    </ul>
+  </div>
 </nav>
-<div class="margin40"></div>
 <div class="container-fluid">
   <router-outlet></router-outlet>
 </div>

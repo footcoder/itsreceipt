@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {headersToString} from "selenium-webdriver/http";
 
 /*const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -14,17 +15,9 @@ export class UserService {
   }
 
   signIn(data) {
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
-    }
-    return this.http.post('http://footcoder.niee.kr:8080/user/sign-in', data, httpOptions);
-
-    // let username: string = data.email;
-    // let password: string = data.passwordError;
-    // let headers: Headers = new Headers();
-    // headers.append("Authorization", "Basic " + btoa(username + ":" + password));
-    // headers.append("Content-Type", "application/x-www-form-urlencoded");
-    // return this.http.post('http://footcoder.niee.kr:8080/user/sign-in', headers);
+    let headers = new HttpHeaders();
+    headers.append("Authorization", "Basic " + btoa(data.username + ":" + data.password));
+    return this.http.get('http://footcoder.niee.kr:8080/user/sign-in',{headers : headers});
   }
 
   signup(data) {

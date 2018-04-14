@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  constructor (private router:Router){
+
+  }
+
+  ngOnInit(){
+  }
+
+  routerChange(url){
+    this.router.navigateByUrl(url);
+    $('.navbar-toggler').click();
+  }
 
 }
