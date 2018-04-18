@@ -14,14 +14,18 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 public class UserController extends BaseController {
 
+    private final UserService userService;
+
     @GetMapping(value = "/hello")
     public String hello() {
 
         return "hello world";
     }
 
-    private final UserService userService;
 
+    /**
+     * 회원 가입
+     */
     @PostMapping(value = "/sign-up")
     public ModelMap signupUser(@RequestBody SignupParam signupParam) {
 
@@ -31,6 +35,5 @@ public class UserController extends BaseController {
 
         return success();
     }
-
 
 }

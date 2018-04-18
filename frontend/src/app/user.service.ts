@@ -29,7 +29,7 @@ export class UserService {
           return callback && callback();
         },
         err =>{
-          cnosole.log(err);
+          console.log(err);
         },
         () => console.log('sign-in finished')
       );

@@ -2,19 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.footcoder.receipt.mapper.UserMapper">
 
-    <insert id="signupUser" parameterType="kr.footcoder.receipt.domain.SignupParam">
+    <select id="readUser" parameterType="map" resultType="User">
+      select email
+            , password
+            , moneyType
+            , role
+      from users
+      where email = #{email}
+    </select>
+
+    <insert id="signupUser" parameterType="SignupParam">
       insert into users
-      (email, password, moneyType)
+        (email, password, role, moneyType)
       values
-      (#{email}, #{password}, #{moneyType})
+        (#{email}, #{password}, 'ROLE_USER', #{moneyType})
     </insert>
 
 
-    <select id="getExistUser" parameterType="java.lang.String" resultType="int">
-        select
-                count(*) cnt
+    <select id="isExistUser" parameterType="String" resultType="int">
+        select count(*) cnt
         from    users
         where   email = #{email}
     </select>
 
+    <delete id="deleteUser" parameterType="String">
+        delete from users
+        where email = #{email}
+    </delete>
 </mapper>
