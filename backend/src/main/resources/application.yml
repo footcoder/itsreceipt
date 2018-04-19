@@ -5,6 +5,9 @@ spring:
     active: development
 #    active: production
 
+server:
+    port: 8080
+
 mybatis:
   type-aliases-package: kr.footcoder.receipt.domain;
   mapper-locations: classpath:mappers/*.xml
