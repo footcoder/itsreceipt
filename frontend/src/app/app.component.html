@@ -14,8 +14,11 @@
       <li #mainLink class="nav-item">
         <a class="nav-link" (click)="routerChange('main')">Main <span class="sr-only">(14)</span></a>
       </li>
-      <li #signinLink class="nav-item">
+      <li *ngIf="!userService.authenticated" #signinLink class="nav-item">
         <a class="nav-link" (click)="routerChange('sign-in')">Sign-in</a>
+      </li>
+      <li *ngIf="userService.authenticated" #signOutLink class="nav-item">
+        <a class="nav-link" (click)="routerChange('sign-in')">Sign-Out</a>
       </li>
     </ul>
   </div>

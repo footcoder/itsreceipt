@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
-
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -26,7 +26,7 @@ import { MainComponent } from './main/main.component';
     HttpClientModule,
     HttpClientJsonpModule
   ],
-  providers: [
+  providers: [{provide: LocationStrategy, useClass:HashLocationStrategy},
     UserService, FormBuilder
   ],
   bootstrap: [AppComponent]
