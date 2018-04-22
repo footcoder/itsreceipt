@@ -1,26 +1,39 @@
 package kr.footcoder.receipt.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Created by niee on 2018. 4. 5..
  */
-//@Configuration
-public class CorsFilter {
-    //@Bean
-    public WebMvcConfigurer webMvcConfigurer(){
-        return new WebMvcConfigurer(){
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowCredentials(false)
-                        .allowedOrigins("*")
-                        .allowedMethods("POST","GET","OPTIONS")
-                        .maxAge(3600);
-            }
-        };
+@Component
+@Order(Ordered.HIGHEST_PRECEDENCE)
+public class CorsFilter implements Filter {
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+    }
+
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+        HttpServletResponse response = (HttpServletResponse) res;
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        //response.setHeader("Access-Control-Allow-Headers", "x-auth-token, content-type");
+        response.setHeader("Access-Control-Allow-Headers", "authorization, content-type");
+        chain.doFilter(req, res);
+
+    }
+
+    @Override
+    public void destroy() {
+
     }
 }

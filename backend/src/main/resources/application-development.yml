@@ -1,6 +1,3 @@
-server:
-    port: 8080
-
 spring:
   datasource:
     platform: mysql
@@ -19,6 +16,7 @@ spring:
       connection-test-query: SELECT 1 FROM DUAL
       minimum-idle: 1
       pool-name: receipt-hikari
+
 
 logging:
   level:
