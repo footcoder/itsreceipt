@@ -1,6 +1,6 @@
-package com.backend.web.controller.rest;
+package kr.footcoder.receipt.controller.rest;
 
-import com.backend.web.domain.SignupParam;
+import kr.footcoder.receipt.domain.SignupParam;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -24,7 +24,7 @@ public class UserControllerRest {
         ObjectMapper objectMapper = new ObjectMapper();
 
         return this.mvc.perform(
-                post("/user/sign-in")
+                post("/user/sign-up")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(signupParam))
         ).andReturn().getResponse();

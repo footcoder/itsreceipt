@@ -6,7 +6,7 @@ spring:
 #    active: production
 
 mybatis:
-  type-aliases-package: com.backend.web.domain;
+  type-aliases-package: kr.footcoder.receipt.domain;
   mapper-locations: classpath:mappers/*.xml
   configuration:
     default-statement-timeout: 120

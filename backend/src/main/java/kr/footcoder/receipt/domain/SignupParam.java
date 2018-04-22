@@ -1,4 +1,4 @@
-package com.backend.web.domain;
+package kr.footcoder.receipt.domain;
 
 import lombok.Data;
 
@@ -8,6 +8,6 @@ public class SignupParam {
 
     private String email;
     private String password;
-
+    private String moneyType;
 
 }

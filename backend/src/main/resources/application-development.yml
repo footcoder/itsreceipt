@@ -14,8 +14,13 @@ spring:
       max-idle: 2
       max-active: 2
       max-wait: 10000
+    hikari:
+      maximum-pool-size: 5
+      connection-test-query: SELECT 1 FROM DUAL
+      minimum-idle: 1
+      pool-name: receipt-hikari
 
 logging:
   level:
     org.springframework.web: DEBUG
-    com.colondee.simkoong.insight: DEBUG
+    kr.footcoder.receipt: DEBUG
