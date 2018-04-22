@@ -18,7 +18,7 @@ export class UserService {
         authorization: 'Basic ' + btoa(data.email + ':' + data.password)
       } : {});
 
-    this.http.post('http://footcoder.niee.kr:8080/user/sign-in', {headers: headers})
+    this.http.post('http://localhost:8080/user/sign-in', {headers: headers})
       .subscribe(
         response => {
           if (response['email']) {
@@ -43,6 +43,7 @@ export class UserService {
   }
 
   signup(data) {
-    return this.http.post('http://footcoder.niee.kr:8080/user/sign-up', data);
+    //return this.http.post('http://footcoder.niee.kr:8080/user/sign-up', data);
+    return this.http.post('http://localhost:8080/user/sign-up', data);
   }
 }

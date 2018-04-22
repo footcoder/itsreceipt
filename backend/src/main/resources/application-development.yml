@@ -16,8 +16,7 @@ spring:
       connection-test-query: SELECT 1 FROM DUAL
       minimum-idle: 1
       pool-name: receipt-hikari
-  session:
-    store-type: jdbc
+
 
 logging:
   level:

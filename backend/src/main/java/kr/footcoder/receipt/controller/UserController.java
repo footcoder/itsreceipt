@@ -7,6 +7,7 @@ import kr.footcoder.receipt.domain.User;
 import kr.footcoder.receipt.enumclass.ErrorCode;
 import kr.footcoder.receipt.service.UserService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,9 +15,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import sun.misc.BASE64Decoder;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.Base64;
 
+@Slf4j
 @AllArgsConstructor
 @RequestMapping("/user")
 @RestController
@@ -48,11 +53,20 @@ public class UserController extends BaseController {
     public AuthenticationToken login(
             @RequestBody AuthenticationRequest authenticationRequest,
             HttpSession session
-    ) {
-        String email = authenticationRequest.getEmail();
+    ) throws IOException {
+
+        log.error(authenticationRequest.getEmail());
+        log.error(authenticationRequest.getPassword());
+
+        log.error(session.getId());
+
+
+        String email    = authenticationRequest.getEmail();
         String password = authenticationRequest.getPassword();
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(email, password);
+
+
         Authentication authentication = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
