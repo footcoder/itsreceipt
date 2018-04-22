@@ -10,7 +10,6 @@ import java.util.Collection;
 public class AuthenticationToken {
 
     private String username;
-    private Collection authorities;
     private String token;
 
 }
