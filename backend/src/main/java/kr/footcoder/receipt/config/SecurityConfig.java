@@ -30,6 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/user/sign-up").permitAll()
+                .antMatchers("/user/sign-in").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/user/*").hasAnyAuthority("ROLE_USER")
                 .anyRequest()
