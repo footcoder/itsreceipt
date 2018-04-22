@@ -4,6 +4,7 @@ import kr.footcoder.receipt.domain.SignupParam;
 import kr.footcoder.receipt.domain.User;
 import kr.footcoder.receipt.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.junit.*;
 import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,6 +93,16 @@ public class UserServiceTest {
         */
     }
 
+    @Test
+    public void base64생성(){
+        String encoderString = "test@test.com:123123123";
+        byte[] encoded = Base64.encodeBase64(encoderString.getBytes());
 
+        log.error("encoded : {}", new String(encoded));
+
+        String[] decodedAuthorization = new String(Base64.decodeBase64(encoded)).split(":");
+        log.error(decodedAuthorization[0]);
+        log.error(decodedAuthorization[1]);
+    }
 
 }
