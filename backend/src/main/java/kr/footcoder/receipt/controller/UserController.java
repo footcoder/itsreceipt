@@ -1,7 +1,6 @@
 package kr.footcoder.receipt.controller;
 
 import kr.footcoder.receipt.domain.AuthenticationRequest;
-import kr.footcoder.receipt.domain.AuthenticationToken;
 import kr.footcoder.receipt.domain.SignupParam;
 import kr.footcoder.receipt.domain.User;
 import kr.footcoder.receipt.service.UserService;
@@ -17,10 +16,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static kr.footcoder.receipt.enumclass.ErrorCode.ERR0002;
 import static kr.footcoder.receipt.enumclass.ErrorCode.ERR0003;
 
@@ -66,7 +65,6 @@ public class UserController extends BaseController {
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(email, password);
 
-
         try {
             Authentication authentication = authenticationManager.authenticate(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -78,8 +76,7 @@ public class UserController extends BaseController {
                             SecurityContextHolder.getContext());
 
         User user = userService.readUser(email);
-
-        new AuthenticationToken(user.getEmail(), session.getId());
+        checkNotNull(user, "User must not be null : " + user.getEmail());
 
         Map<String, Object> results = new ConcurrentHashMap<>();
         results.put("token", session.getId());
