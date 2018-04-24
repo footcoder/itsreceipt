@@ -59,7 +59,7 @@ public class UserController extends BaseController {
     public ModelMap login(
             @RequestBody AuthenticationRequest authenticationRequest,
             HttpSession session
-    ) throws IOException {
+    ){
 
         String email    = authenticationRequest.getEmail();
         String password = authenticationRequest.getPassword();
@@ -86,7 +86,6 @@ public class UserController extends BaseController {
         results.put("email", user.getEmail());
 
         return success().addAttribute("results", results);
-
 
     }
 
