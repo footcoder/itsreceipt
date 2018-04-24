@@ -1,4 +1,4 @@
-package kr.footcoder.receipt.controller.service;
+package kr.footcoder.receipt.service;
 
 import kr.footcoder.receipt.domain.SignupParam;
 import kr.footcoder.receipt.domain.User;

@@ -1,4 +1,4 @@
-package kr.footcoder.receipt.controller.mapper;
+package kr.footcoder.receipt.mapper;
 
 import kr.footcoder.receipt.domain.User;
 import kr.footcoder.receipt.mapper.UserMapper;
