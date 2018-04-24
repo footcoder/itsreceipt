@@ -7,37 +7,27 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 @Data
-public class User implements UserDetails {
+public class User implements UserDetails{
 
     private String email;
     private String password;
     private String role;
 
-    private boolean isAccountNonExpired;
-    private boolean isAccountNonLocked;
-    private boolean isCredentialsNonExpired;
-    private boolean isEnabled;
     private Collection<? extends GrantedAuthority> authorities;
-
-    public User(String email, String password, Collection<GrantedAuthority> authorities) {
-        this.email = email;
-        this.password = password;
-        this.authorities = authorities;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+        return this.authorities;
     }
 
     @Override
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return email;
+        return this.email;
     }
 
     @Override

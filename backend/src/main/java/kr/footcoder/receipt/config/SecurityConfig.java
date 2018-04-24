@@ -1,68 +1,66 @@
 package kr.footcoder.receipt.config;
 
-import kr.footcoder.receipt.handler.AuthFailureHandler;
-import kr.footcoder.receipt.handler.AuthSuccessHandler;
-import kr.footcoder.receipt.handler.HttpLogoutSuccessHandler;
 import kr.footcoder.receipt.service.UserService;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.session.web.http.HeaderHttpSessionStrategy;
+import org.springframework.session.web.http.HttpSessionStrategy;
 
-@Slf4j
+
 @Configuration
-@EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserService userService;
-    private final HttpAuthenticationEntryPoint authenticationEntryPoint;
-    private final AuthSuccessHandler authSuccessHandler;
-    private final AuthFailureHandler authFailureHandler;
-    private final HttpLogoutSuccessHandler logoutSuccessHandler;
-
-
+    UserService userService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
-        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
-
-        http.csrf().disable();
-        http.formLogin()
-                .permitAll()
-                .loginProcessingUrl("/user/sign-in")
-                .usernameParameter("email")
-                .passwordParameter("password")
-                .successHandler(authSuccessHandler)
-                .failureHandler(authFailureHandler)
+        http.csrf() //Cross Site Request Forgery
+                .disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER)
                 .and()
-                .logout()
-                .permitAll()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessHandler(logoutSuccessHandler)
+                .authorizeRequests()
+                .antMatchers("/user/sign-up").permitAll()
+                .antMatchers("/user/sign-in").permitAll()
+                .antMatchers("/user/isExist/eamil").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .antMatchers("/user/*").hasAnyAuthority("ROLE_USER")
+                .anyRequest()
+                .authenticated()
                 .and()
-                .sessionManagement()
-                .maximumSessions(1);
-        http.authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/user/sign-up").permitAll()
-                .anyRequest().authenticated();
-
+                .logout();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        auth.userDetailsService(this.userService).passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(this.userService)
+                .passwordEncoder(bCryptPasswordEncoder());
+    }
 
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public HttpSessionStrategy httpSessionStrategy() {
+        return new HeaderHttpSessionStrategy();
     }
 
 }

@@ -7,6 +7,8 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.Collections;
+
 @Slf4j
 public class BaseController {
 
@@ -16,11 +18,14 @@ public class BaseController {
         return error(ex.getErrorCode());
     }
 
-    protected ModelMap success() {
-        return new ModelMap("status", "T");
+    ModelMap success() {
+        ModelMap success = new ModelMap("status", "T");
+        success.addAttribute("results", Collections.emptyMap());
+
+        return success;
     }
 
-    protected ModelMap error(ErrorCode errorCode) {
+    ModelMap error(ErrorCode errorCode) {
 
         ModelMap error = new ModelMap();
         error.addAttribute("status", "F");

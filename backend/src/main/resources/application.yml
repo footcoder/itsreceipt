@@ -3,7 +3,14 @@
 spring:
   profiles:
     active: development
-#    active: production
+  session:
+    store-type: none
+
+
+
+server:
+    port: 8080
+
 
 mybatis:
   type-aliases-package: kr.footcoder.receipt.domain;

@@ -1,7 +1,9 @@
 package kr.footcoder.receipt.controller;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.footcoder.receipt.controller.rest.UserControllerRest;
+import kr.footcoder.receipt.domain.AuthenticationRequest;
 import kr.footcoder.receipt.domain.SignupParam;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.*;
@@ -17,6 +19,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.Iterator;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -29,25 +33,27 @@ public class UserControllerTest {
 
     @Autowired
     private WebApplicationContext context;
-    private MockMvc mvc;
     private UserControllerRest userControllerRest;
-    private SignupParam signupParam;
 
     @Before
     public void setUp() {
-        this.mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
-        this.signupParam = new SignupParam();
-        signupParam.setEmail("signinUser3@tset.com");
-        signupParam.setPassword("123123123");
+        MockMvc mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
+        SignupParam signupParam = new SignupParam();
+        signupParam.setEmail("signinUser@tset.com");
+        signupParam.setPassword("1111");
         signupParam.setMoneyType("2");
 
-        userControllerRest = new UserControllerRest(mvc, signupParam);
+        AuthenticationRequest authenticationRequest = new AuthenticationRequest();
+        authenticationRequest.setEmail("test1@test.com");
+        authenticationRequest.setPassword("123123123");
+
+        userControllerRest = new UserControllerRest(mvc, signupParam, authenticationRequest);
     }
 
 
     @Test
     public void 정상적인_회원가입() throws Exception {
-        HttpServletResponse response = userControllerRest.signinUser();
+        HttpServletResponse response = userControllerRest.signupUser();
 
         assertThat(response.getStatus(), is(HttpStatus.OK.value()));
 
@@ -55,16 +61,30 @@ public class UserControllerTest {
 
     @Test
     public void 이미가입된_회원확인() throws Exception {
-        HttpServletResponse response = userControllerRest.signinUser();
+        HttpServletResponse response = userControllerRest.signupUser();
 
         assertThat(response.getStatus(), is(HttpStatus.OK.value()));
 
     }
 
     @Test
-    public void 통신테스트()throws Exception {
+    public void 통신테스트() throws Exception {
 
         HttpServletResponse response = userControllerRest.hello();
+
+        assertThat(response.getStatus(), is(HttpStatus.OK.value()));
+    }
+
+    @Test
+    public void 인증_로그인_테스트() throws Exception{
+        HttpServletResponse response = userControllerRest.signinUser();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+
+        //String resultResponse = objectMapper.writeValueAsString(response);
+
+        log.error("resultResponse : {}", objectMapper.writeValueAsString(response.getContentType()));
 
         assertThat(response.getStatus(), is(HttpStatus.OK.value()));
     }

@@ -2,7 +2,6 @@ package kr.footcoder.receipt.service.impl;
 
 import kr.footcoder.receipt.domain.SignupParam;
 import kr.footcoder.receipt.domain.User;
-import kr.footcoder.receipt.domain.UserSession;
 import kr.footcoder.receipt.mapper.UserMapper;
 import kr.footcoder.receipt.service.UserService;
 import lombok.AllArgsConstructor;
@@ -13,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,21 +20,61 @@ import java.util.List;
 
 @Slf4j
 @Service
+@Transactional
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
 
-    public UserDetails loadUserByUsername(String email){
+    public User readUser(String email) {
+        return userMapper.readUser(email);
+    }
 
-        UserSession user = userMapper.findUserByEmail(email);
+    public boolean signupUser(SignupParam signupParam) {
 
+        int result = userMapper.isExistUser(signupParam.getEmail());
+
+        if (result == 0) {
+            String rawPassword = signupParam.getPassword();
+            String encodedPassword = new BCryptPasswordEncoder().encode(rawPassword);
+            signupParam.setPassword(encodedPassword);
+
+            userMapper.signupUser(signupParam);
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public void deleteUser(String email) {
+
+        int result = userMapper.isExistUser(email);
+
+        if(result == 0){
+            throw new AssertionError("탈퇴 시킬 유저가 존재하지 않습니다. email : " + email);
+        }
+
+        if(result > 1){
+            throw new AssertionError("중복된 유저가 존재합니다. email : " + email);
+        }
+
+        int resultCnt = userMapper.deleteUser(email);
+
+        if(resultCnt != 1) throw new IllegalStateException("탈퇴처리가 정상적으로 이루어지지 않았습니다");
+    }
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) {
+        User user = userMapper.readUser(username);
         if (user == null) {
             throw new UsernameNotFoundException("No user found with user email");
         }
 
+        user.setAuthorities(getAuthorities(user.getRole()));
 
-        return new User(user.getEmail(), user.getPassword(), this.getAuthorities(user.getRole()));
+        return user;
     }
 
     private Collection<GrantedAuthority> getAuthorities(String role) {
@@ -44,25 +84,5 @@ public class UserServiceImpl implements UserService {
         return aurhorities;
     }
 
-
-    public boolean signupUser(SignupParam signupParam) {
-
-        // 패스워드 암호화
-        signupParam.setPassword(new BCryptPasswordEncoder().encode(signupParam.getPassword()));
-
-        int result = userMapper.getExistUser(signupParam.getEmail());
-
-        if (result == 0) {
-            userMapper.signupUser(signupParam);
-            return true;
-        }
-
-        return false;
-    }
-
-
-    /*public PasswordEncoder passwordEncoder() {
-        return this.passwordEncoder;
-    }*/
 
 }

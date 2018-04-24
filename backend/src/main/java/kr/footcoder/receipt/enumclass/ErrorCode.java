@@ -11,7 +11,8 @@ import lombok.Getter;
 public enum ErrorCode {
 
     ERR0001("오류가 발생하였습니다."),
-    ERR0002("이미 회원가입된 이메일 계정입니다.");
+    ERR0002("이미 회원가입된 이메일 계정입니다."),
+    ERR0003("회원정보가 일치하지 않습니다. 확인해주세요.");
 
     private String errorMessage;
 
