@@ -16,6 +16,14 @@ spring:
       connection-test-query: SELECT 1 FROM DUAL
       minimum-idle: 1
       pool-name: receipt-hikari
+  redis:
+    host: 45.119.146.45
+    port: 6379
+    jedis:
+      pool:
+        min-idle: 200
+        max-idle: 200
+
 
 
 logging:

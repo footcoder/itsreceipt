@@ -4,12 +4,13 @@ spring:
   profiles:
     active: development
   session:
-    store-type: none
-
-
+    store-type: redis
 
 server:
     port: 8080
+    servlet:
+      session:
+        timeout:
 
 
 mybatis:
