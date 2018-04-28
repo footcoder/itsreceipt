@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
@@ -24,17 +25,9 @@ public class RedisSessionConfig {
     private final int USER_INFO = 0;
 
     @Bean
-    public String redisValueTest(){
-        log.error("redis host : {}", redis.get("host").get(0));
-        log.error("redis host : {}", redis.get("port").get(0));
-        return "레디스 호스트포트 잘찍히는지만 확인";
-    }
-
-    @Bean
     public JedisConnectionFactory connectionFactory(){
-        JedisConnectionFactory connectionFactory = new JedisConnectionFactory();
-        connectionFactory.setHostName(redis.get("host").get(0));
-        connectionFactory.setPort(Integer.parseInt(redis.get("port").get(0)));
+
+        JedisConnectionFactory connectionFactory = new JedisConnectionFactory(new RedisStandaloneConfiguration(redis.get("host").get(0)));
         connectionFactory.setDatabase(USER_INFO);
 
         return connectionFactory;
