@@ -11,6 +11,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { MessageComponent } from './message/message.component';
 import { UserService } from './user.service';
 import { MainComponent } from './main/main.component';
+import { ViewComponent } from './view/view.component';
+import { WriteComponent } from './write/write.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { MainComponent } from './main/main.component';
     SignUpComponent,
     SignInComponent,
     MessageComponent,
-    MainComponent
+    MainComponent,
+    ViewComponent,
+    WriteComponent
   ],
   imports: [
     BrowserModule,
