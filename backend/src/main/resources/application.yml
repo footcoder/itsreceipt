@@ -5,12 +5,13 @@ spring:
     active: development
   session:
     store-type: redis
+#    store-type: none
 
 server:
     port: 8080
     servlet:
       session:
-        timeout:
+        timeout: 1800000
 
 
 mybatis:

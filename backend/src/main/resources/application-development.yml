@@ -19,10 +19,15 @@ spring:
   redis:
     host: 45.119.146.45
     port: 6379
+    ssl: false
+    timeout: 2000
     jedis:
       pool:
-        min-idle: 200
-        max-idle: 200
+        max-idle: 8
+        min-idle: 0
+        max-active: 8
+        max-wait: 1
+
 
 
 

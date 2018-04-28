@@ -16,11 +16,11 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class RedisTest {
 
     @Autowired
-    private RedisTemplate userRedisTemplate;
+    private RedisTemplate userInfoRedisTemplate;
 
     @Test
     public void 레디스_접속테스트(){
-        System.out.println(userRedisTemplate.opsForValue().get("Hello"));
+        System.out.println(userInfoRedisTemplate.opsForValue().get("Hello"));
     }
 
 }
