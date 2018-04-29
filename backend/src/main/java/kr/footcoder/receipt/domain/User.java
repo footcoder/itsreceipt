@@ -9,6 +9,7 @@ import java.util.Collection;
 @Data
 public class User implements UserDetails{
 
+    private Integer seq;
     private String email;
     private String password;
     private String role;

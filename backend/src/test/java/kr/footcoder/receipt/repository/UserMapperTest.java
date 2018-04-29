@@ -1,7 +1,6 @@
-package kr.footcoder.receipt.mapper;
+package kr.footcoder.receipt.repository;
 
 import kr.footcoder.receipt.domain.User;
-import kr.footcoder.receipt.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.*;
 import org.junit.runner.*;

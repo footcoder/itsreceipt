@@ -3,9 +3,11 @@ package kr.footcoder.receipt.controller;
 import kr.footcoder.receipt.domain.AuthenticationRequest;
 import kr.footcoder.receipt.domain.SignupParam;
 import kr.footcoder.receipt.domain.User;
+import kr.footcoder.receipt.repository.UserInfoRepository;
 import kr.footcoder.receipt.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,7 +32,9 @@ import static kr.footcoder.receipt.enumclass.ErrorCode.ERR0003;
 public class UserController extends BaseController {
 
     private final UserService userService;
+    private final UserInfoRepository userInfoRepository;
     private final AuthenticationManager authenticationManager;
+
 
     @GetMapping(value = "/hello")
     public String hello() {
@@ -76,7 +80,9 @@ public class UserController extends BaseController {
                             SecurityContextHolder.getContext());
 
         User user = userService.readUser(email);
-        checkNotNull(user, "User must not be null : " + user.getEmail());
+        checkNotNull(user, "user must not be null : " + user.getEmail());
+
+        userInfoRepository.initUserInfo(user.getSeq(), session.getId());
 
         Map<String, Object> results = new ConcurrentHashMap<>();
         results.put("token", session.getId());

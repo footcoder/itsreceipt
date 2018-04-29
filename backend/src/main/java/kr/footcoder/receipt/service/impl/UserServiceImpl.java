@@ -2,7 +2,7 @@ package kr.footcoder.receipt.service.impl;
 
 import kr.footcoder.receipt.domain.SignupParam;
 import kr.footcoder.receipt.domain.User;
-import kr.footcoder.receipt.mapper.UserMapper;
+import kr.footcoder.receipt.repository.UserMapper;
 import kr.footcoder.receipt.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -12,7 +12,6 @@ import org.springframework.data.redis.serializer.GenericToStringSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -21,13 +20,13 @@ import java.util.Map;
 public class RedisSessionConfig {
 
     @Setter
-    private Map<String, List<String>> redis = new HashMap<>();
+    private Map<String, String> redis = new HashMap<>();
     private final int USER_INFO = 0;
 
     @Bean
     public JedisConnectionFactory connectionFactory(){
 
-        JedisConnectionFactory connectionFactory = new JedisConnectionFactory(new RedisStandaloneConfiguration(redis.get("host").get(0)));
+        JedisConnectionFactory connectionFactory = new JedisConnectionFactory(new RedisStandaloneConfiguration(redis.get("host")));
         connectionFactory.setDatabase(USER_INFO);
 
         return connectionFactory;
