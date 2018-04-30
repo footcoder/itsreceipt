@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 
 @Slf4j
@@ -18,13 +19,26 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response, Authentication authentication) throws IOException {
+
+        log.error("로그인 성공 onAuthenticationSuccess");
+
+
+        // 세션 redis 저장
+
+
+        // 리턴 성공 정의
         response.setStatus(HttpServletResponse.SC_OK);
+
+        // 응답
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        String result = "{\"status\":\"T\"}";
+
+        PrintWriter writer = response.getWriter();
+        writer.print("{\"status\":\"T\"}");
+        writer.flush();
+        writer.close();
 
 
-        response.getWriter().write(result);
 
     }
 
