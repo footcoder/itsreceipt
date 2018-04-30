@@ -1,5 +1,3 @@
-server:
-    port: 8080
 
 spring:
   datasource:
@@ -19,6 +17,18 @@ spring:
       connection-test-query: SELECT 1 FROM DUAL
       minimum-idle: 1
       pool-name: receipt-hikari
+  redis:
+    host: 45.119.146.45
+    port: 6379
+    ssl: false
+    timeout: 2000
+    jedis:
+      pool:
+        max-idle: 8
+        min-idle: 0
+        max-active: 8
+        max-wait: 1
+
 
 logging:
   level:

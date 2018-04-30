@@ -33,8 +33,9 @@ public class UserServiceImpl implements UserService {
             throw new UsernameNotFoundException("No user found with user email");
         }
 
+        log.error("loadUserByUsername");
 
-        return new User(user.getEmail(), user.getPassword(), this.getAuthorities(user.getRole()));
+        return new User(user.getSeq(), user.getEmail(), user.getPassword(), this.getAuthorities(user.getRole()));
     }
 
     private Collection<GrantedAuthority> getAuthorities(String role) {
@@ -60,9 +61,5 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-
-    /*public PasswordEncoder passwordEncoder() {
-        return this.passwordEncoder;
-    }*/
 
 }

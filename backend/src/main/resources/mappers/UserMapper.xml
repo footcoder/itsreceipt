@@ -18,7 +18,8 @@
     </select>
 
     <select id="findUserByEmail" parameterType="java.lang.String" resultType="UserSession">
-        select email
+        select seq
+              , email
               , password
               , role
         from users

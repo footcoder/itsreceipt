@@ -3,7 +3,20 @@
 spring:
   profiles:
     active: development
-#    active: production
+  session:
+    store-type: redis
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+server:
+    port: 8080
+    servlet:
+      session:
+        timeout: 1800000
+
 
 mybatis:
   type-aliases-package: kr.footcoder.receipt.domain;

@@ -9,6 +9,7 @@ import java.util.Collection;
 @Data
 public class User implements UserDetails {
 
+    private int seq;
     private String email;
     private String password;
     private String role;
@@ -19,7 +20,8 @@ public class User implements UserDetails {
     private boolean isEnabled;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public User(String email, String password, Collection<GrantedAuthority> authorities) {
+    public User(int seq, String email, String password, Collection<GrantedAuthority> authorities) {
+        this.seq = seq;
         this.email = email;
         this.password = password;
         this.authorities = authorities;
