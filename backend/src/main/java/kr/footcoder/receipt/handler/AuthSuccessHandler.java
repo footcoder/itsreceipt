@@ -6,6 +6,8 @@ import kr.footcoder.receipt.mapper.UserInfoRepository;
 import kr.footcoder.receipt.util.SessionUserUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -33,19 +35,26 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
 
 		// 세션 redis 저장
 		userInfoRepository.initUserInfo(user.getSeq(), request.getSession().getId());
+		JSONObject jsonObject = new JSONObject();
 
-		// 리턴 성공 정의
+		try {
+			jsonObject.put("status", "T");
+
+			JSONObject results = new JSONObject();
+			results.put("token", request.getSession().getId());
+			jsonObject.put("results", results);
+		} catch (JSONException e) {
+			log.error("JSONException : {}", e.getMessage());
+		}
+
 		response.setStatus(HttpServletResponse.SC_OK);
-
-		// 응답
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 
 		PrintWriter writer = response.getWriter();
-		writer.print("{\"status\":\"T\"}");
+		writer.print(jsonObject);
 		writer.flush();
 		writer.close();
-
 
 	}
 
