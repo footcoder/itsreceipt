@@ -30,6 +30,7 @@ spring:
         max-wait: 1
 
 
+
 logging:
   level:
     org.springframework.web: DEBUG
