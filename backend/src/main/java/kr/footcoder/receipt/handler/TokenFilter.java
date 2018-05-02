@@ -2,7 +2,6 @@ package kr.footcoder.receipt.handler;
 
 import kr.footcoder.receipt.domain.User;
 import kr.footcoder.receipt.enumclass.ErrorCode;
-import kr.footcoder.receipt.exceptions.LogicException;
 import kr.footcoder.receipt.mapper.UserInfoRepository;
 import kr.footcoder.receipt.service.UserService;
 import lombok.AllArgsConstructor;
@@ -10,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.core.annotation.Order;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -23,12 +21,9 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-
-import static kr.footcoder.receipt.util.JsonResultUtil.getFailJson;
 
 @Slf4j
 @Component
