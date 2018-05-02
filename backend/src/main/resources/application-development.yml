@@ -33,5 +33,5 @@ spring:
 
 logging:
   level:
-#    org.springframework.web: DEBUG
+    org.springframework.web: DEBUG
     kr.footcoder.receipt: DEBUG

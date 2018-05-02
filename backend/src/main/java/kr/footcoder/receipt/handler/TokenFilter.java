@@ -1,16 +1,21 @@
 package kr.footcoder.receipt.handler;
 
 import kr.footcoder.receipt.domain.User;
+import kr.footcoder.receipt.enumclass.ErrorCode;
+import kr.footcoder.receipt.exceptions.LogicException;
 import kr.footcoder.receipt.mapper.UserInfoRepository;
 import kr.footcoder.receipt.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -18,8 +23,12 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+
+import static kr.footcoder.receipt.util.JsonResultUtil.getFailJson;
 
 @Slf4j
 @Component
@@ -36,58 +45,42 @@ public class TokenFilter extends GenericFilterBean {
 
 		HttpServletRequest httpRequest = this.getAsHttpRequest(request);
 
-
 		String token = httpRequest.getHeader("token");
 
 		if (token != null) {
-			log.error("token : {}", token);
 
+			//1. 레디스에 token 존재여부 확인
 			String email = userInfoRepository.getEmailByUser(token);
-			//token 값 키로 유저 조회
-			User user = (User) userServiceImpl.loadUserByUsername(email);
 
-			if (user != null) {
-				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpRequest));
-				SecurityContextHolder.getContext().setAuthentication(authentication);
+			if(StringUtils.isEmpty(email)){
+				printError(response, ErrorCode.ERR0004);
+			} else {
+				//token 값 키로 유저 조회
+				User user = (User) userServiceImpl.loadUserByUsername(email);
 
+				if (user != null) {
+					UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+					authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpRequest));
+					SecurityContextHolder.getContext().setAuthentication(authentication);
+
+					//레디스 만료시간 갱신
+					userInfoRepository.refreshSessionOfUser(token);
+					chain.doFilter(request, response);
+				} else {
+					printError(response, ErrorCode.ERR0003);
+				}
 			}
+
+
 		} else {
 			logger.debug("token is null ========= ");
 			logger.debug(httpRequest.getContextPath());
-			//todo.에러코드 정의 필요
-
+			chain.doFilter(request, response);
 		}
 
-/*
-
-        HttpServletRequest httpRequest = this.getAsHttpRequest(request);
-        String token = httpRequest.getHeader("token");
-
-        if(token != null){
-            //
-
-
-
-            chain.doFilter(request, response);
-        } else {
-            logger.debug("token is null ========= ");
-            logger.debug(httpRequest.getContextPath());
-            chain.doFilter(request, response);
-
-        }
-
-
-
-        chain.doFilter(request, response);
-        */
-		//1.token 유효 기간 검증
-
-		// 만료된 token일경우 에러 리턴
-
-		//2. 정상적인 token일경우 유저 조회후 spring security UsernamePasswordAuthenticationFilter 세션
-		chain.doFilter(request, response);
 	}
+
+
 
 	private HttpServletRequest getAsHttpRequest(ServletRequest request) {
 		if (!(request instanceof HttpServletRequest)) {
@@ -103,4 +96,29 @@ public class TokenFilter extends GenericFilterBean {
 
 		return httpRequest;
 	}
+
+
+	private void printError(ServletResponse response, ErrorCode errorCode) {
+		try {
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("status", "F");
+
+			JSONObject error = new JSONObject();
+			error.put("error", errorCode.name());
+			error.put("errorCode", errorCode.getErrorMessage());
+
+			jsonObject.put("results", error);
+
+			PrintWriter out = response.getWriter();
+			out.print(jsonObject.toString());
+
+			logger.info(jsonObject.toString());
+
+			out.flush();
+			out.close();
+		} catch(JSONException | IOException e) {
+			logger.error(e.getMessage(), e);
+		}
+	}
+
 }

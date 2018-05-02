@@ -20,7 +20,7 @@ public class HttpLogoutSuccessHandler  implements LogoutSuccessHandler {
         if ( authentication == null ) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
-            // redis 세션 삭제 필요
+            // todo. redis 세션 삭제 필요
             response.setStatus(HttpServletResponse.SC_OK);
             User loginUserDetails = (User) authentication.getPrincipal();
             PrintWriter pw = response.getWriter();

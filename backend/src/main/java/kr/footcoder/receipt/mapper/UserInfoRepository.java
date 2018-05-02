@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.concurrent.TimeUnit;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -17,13 +18,18 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @AllArgsConstructor
 public class UserInfoRepository {
 
-	private RedisTemplate userInfoRedisTemplate;
+	private RedisTemplate<String, String> userInfoRedisTemplate;
 	private final String PREFIX = "userInfo:";
 
 	private String getKey(String userId){
 		return PREFIX + userId;
 	}
 
+	/**
+	 * 로그인 시 redis 세션 저장
+	 * @param token = key : token
+	 * @param userId = value : email
+	 */
 	@SuppressWarnings("unchecked")
 	public void initUserInfo(String token, String userId){
 		// 현재시간 + 1일
@@ -43,7 +49,20 @@ public class UserInfoRepository {
 		});
 	}
 
+	/**
+	 * token 값으로 유효한회원의 이메일 조회
+	 */
 	public String getEmailByUser(String token) {
-		return (String) userInfoRedisTemplate.opsForValue().get(this.getKey(token));
+		return userInfoRedisTemplate.opsForValue().get(this.getKey(token));
 	}
+
+	/**
+	 * 세션 만료시간 갱신
+	 */
+	public void refreshSessionOfUser(String token){
+		userInfoRedisTemplate.expire(this.getKey(token), 1, TimeUnit.DAYS);
+	}
+
+
+
 }
