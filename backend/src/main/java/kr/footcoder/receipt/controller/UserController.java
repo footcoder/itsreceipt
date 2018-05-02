@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-
 @AllArgsConstructor
 @RequestMapping("/user")
 @RestController

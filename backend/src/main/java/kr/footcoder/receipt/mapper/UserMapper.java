@@ -1,7 +1,6 @@
 package kr.footcoder.receipt.mapper;
 
 import kr.footcoder.receipt.domain.SignupParam;
-import kr.footcoder.receipt.domain.User;
 import kr.footcoder.receipt.domain.UserSession;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;

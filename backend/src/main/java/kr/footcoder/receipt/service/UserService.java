@@ -7,5 +7,4 @@ public interface UserService extends UserDetailsService {
 
     boolean signupUser(SignupParam signupParam);
 
-    //PasswordEncoder passwordEncoder();
 }
