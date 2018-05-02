@@ -34,7 +34,7 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
 		User user = SessionUserUtil.getUser();
 
 		// 세션 redis 저장
-		userInfoRepository.initUserInfo(user.getSeq(), request.getSession().getId());
+		userInfoRepository.initUserInfo(request.getSession().getId(), user.getEmail());
 		JSONObject jsonObject = new JSONObject();
 
 		try {

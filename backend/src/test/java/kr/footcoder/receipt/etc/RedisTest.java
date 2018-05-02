@@ -16,7 +16,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class RedisTest {
 
 	@Autowired
-	private RedisTemplate cc;
+	private RedisTemplate userInfoRedisTemplate;
 
 	@Test
 	public void 레디스_접속테스트(){

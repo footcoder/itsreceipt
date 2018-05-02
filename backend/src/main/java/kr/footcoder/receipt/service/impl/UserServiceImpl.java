@@ -33,8 +33,6 @@ public class UserServiceImpl implements UserService {
             throw new UsernameNotFoundException("No user found with user email");
         }
 
-        log.error("loadUserByUsername");
-
         return new User(user.getSeq(), user.getEmail(), user.getPassword(), this.getAuthorities(user.getRole()));
     }
 

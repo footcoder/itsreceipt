@@ -20,22 +20,22 @@ public class UserInfoRepository {
 	private RedisTemplate userInfoRedisTemplate;
 	private final String PREFIX = "userInfo:";
 
-	private String getKey(int userId){
+	private String getKey(String userId){
 		return PREFIX + userId;
 	}
 
 	@SuppressWarnings("unchecked")
-	public void initUserInfo(int userId, String token){
+	public void initUserInfo(String token, String userId){
 		// 현재시간 + 1일
 		long unixTime = Instant.now().plus(1, ChronoUnit.DAYS).getEpochSecond();
 
 		userInfoRedisTemplate.executePipelined((RedisCallback<Object>) connection -> {
 
 			RedisSerializer serializer = userInfoRedisTemplate.getStringSerializer();
-			byte[] key = serializer.serialize(this.getKey(userId));
-			byte[] value = serializer.serialize(token);
-			checkNotNull(key, "key must not be null" + userId);
-			checkNotNull(value, "value must not be null" + token);
+			byte[] key = serializer.serialize(this.getKey(token));
+			byte[] value = serializer.serialize(userId);
+			checkNotNull(key, "key must not be null" + token);
+			checkNotNull(value, "value must not be null" + userId);
 
 			connection.set(key, value);
 			connection.expireAt(key, unixTime);
@@ -43,4 +43,7 @@ public class UserInfoRepository {
 		});
 	}
 
+	public String getEmailByUser(String token) {
+		return (String) userInfoRedisTemplate.opsForValue().get(this.getKey(token));
+	}
 }

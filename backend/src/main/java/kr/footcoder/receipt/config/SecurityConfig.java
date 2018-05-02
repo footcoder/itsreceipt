@@ -3,6 +3,8 @@ package kr.footcoder.receipt.config;
 import kr.footcoder.receipt.handler.AuthFailureHandler;
 import kr.footcoder.receipt.handler.AuthSuccessHandler;
 import kr.footcoder.receipt.handler.HttpLogoutSuccessHandler;
+import kr.footcoder.receipt.handler.TokenFilter;
+import kr.footcoder.receipt.mapper.UserInfoRepository;
 import kr.footcoder.receipt.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 
@@ -29,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private final AuthSuccessHandler authSuccessHandler;
 	private final AuthFailureHandler authFailureHandler;
 	private final HttpLogoutSuccessHandler logoutSuccessHandler;
+	private final UserInfoRepository userInfoRepository;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -36,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
 		http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
 
-		//http.addFilterBefore(new TokenFilter(), UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(new TokenFilter(userService, userInfoRepository), UsernamePasswordAuthenticationFilter.class);
 
 		http.csrf().disable();
 
