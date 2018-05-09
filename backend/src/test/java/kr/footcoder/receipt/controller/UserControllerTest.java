@@ -29,14 +29,12 @@ public class UserControllerTest {
 
     @Autowired
     private WebApplicationContext context;
-    private MockMvc mvc;
     private UserControllerRest userControllerRest;
-    private SignupParam signupParam;
 
     @Before
     public void setUp() {
-        this.mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
-        this.signupParam = new SignupParam();
+        MockMvc mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
+        SignupParam signupParam = new SignupParam();
         signupParam.setEmail("signinUser3@tset.com");
         signupParam.setPassword("123123123");
         signupParam.setMoneyType("2");

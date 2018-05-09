@@ -75,8 +75,6 @@ public class TokenFilter extends GenericFilterBean {
 
 	}
 
-
-
 	private HttpServletRequest getAsHttpRequest(ServletRequest request) {
 		if (!(request instanceof HttpServletRequest)) {
 			throw new ClassCastException("Expecting an HTTP request");
