@@ -31,10 +31,7 @@ export class SignInComponent implements OnInit {
     //TODO: 비번 RSA 암호화 필요
 
     if(!this.emailError && !this.passwordError){
-      this.userService.signIn(
-        {email: this.email.nativeElement.value, password : this.password.nativeElement.value},
-        () => this.router.navigateByUrl("/")
-      );
+      this.userService.signIn({email: this.email.nativeElement.value, password : this.password.nativeElement.value});
     }
   }
 }

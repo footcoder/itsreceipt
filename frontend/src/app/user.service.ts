@@ -1,50 +1,60 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Router} from "@angular/router";
 
-const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
-}
+/*const httpOptions = {
+ headers: new HttpHeaders({'Content-Type': 'application/json'})
+ }*/
 
 @Injectable()
 export class UserService {
 
   authenticated = false;
+  token:string;
 
-  constructor(private  http: HttpClient) {
+  constructor(private  http: HttpClient, private router:Router) {
   }
 
-  signIn(data, callback) {
-    const headers = new HttpHeaders(data ? {
-        authorization: 'Basic ' + btoa(data.email + ':' + data.password)
-      } : {});
-
-    //this.http.post('http://footcoder.niee.kr:8080/user/sign-in', {headers: headers})
-    this.http.post('http://localhost:8080/user/sign-in', {headers: headers})
+  signIn(data) {
+    // let headers = new HttpHeaders();
+    // headers.append("Authorization", "Basic " + btoa(data.username + ":" + data.password));
+    this.http.post('http://footcoder.niee.kr:8080/user/sign-in',data)
       .subscribe(
-        response => {
-          if (response['email']) {
+        (response:any) => {
+          if(response.status == 'T' && response.result.token != null){
             this.authenticated = true;
-          } else {
-            this.authenticated = false;
+            this.token = response.token;
+            this.router.navigateByUrl('main');
+          }else if(response.status == 'F'){
+            alert(response.result.message);
           }
-          return callback && callback();
         },
-        err =>{
-          console.log(err);
-        },
+        err => console.log(err),
         () => console.log('sign-in finished')
       );
-
-    // let username: string = data.email;
-    // let password: string = data.passwordError;
-    // let headers: Headers = new Headers();
-    // headers.append("Authorization", "Basic " + btoa(username + ":" + password));
-    // headers.append("Content-Type", "application/x-www-form-urlencoded");
-    // return this.http.post('http://footcoder.niee.kr:8080/user/sign-in', headers);
+    // let headers = new HttpHeaders();
+    // headers.append("Authorization", "Basic " + btoa(data.username + ":" + data.password));
+    // this.http.get(
+    //   'http://footcoder.niee.kr:8080/user/sign-in',
+    //   {headers: headers})
+    //   .subscribe(
+    //     result => alert(result),
+    //     err => console.log(err),
+    //     () => console.log('sign-in finished')
+    //   );
   }
 
   signup(data) {
-    //return this.http.post('http://footcoder.niee.kr:8080/user/sign-up', data);
-    return this.http.post('http://localhost:8080/user/sign-up', data);
+    this.http.post('http://footcoder.niee.kr:8080/user/sign-up', data).subscribe(
+      (response:any) => {
+        if(response.status == 'T'){
+          this.router.navigateByUrl('sign-in');
+        }else if(response.status == 'F'){
+          alert(response.result.message);
+        }
+      }, err => {
+        console.log(err)
+      }, () => console.log('signup finish')
+    );;
   }
 }

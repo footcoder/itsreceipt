@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
-
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -10,13 +10,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { MessageComponent } from './message/message.component';
 import { UserService } from './user.service';
+import { MainComponent } from './main/main.component';
+import { ViewComponent } from './view/view.component';
+import { WriteComponent } from './write/write.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignUpComponent,
     SignInComponent,
-    MessageComponent
+    MessageComponent,
+    MainComponent,
+    ViewComponent,
+    WriteComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +30,7 @@ import { UserService } from './user.service';
     HttpClientModule,
     HttpClientJsonpModule
   ],
-  providers: [
+  providers: [{provide: LocationStrategy, useClass:HashLocationStrategy},
     UserService, FormBuilder
   ],
   bootstrap: [AppComponent]

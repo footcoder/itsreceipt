@@ -50,13 +50,7 @@ export class SignUpComponent implements OnInit {
         password: this.password.nativeElement.value,
         moneyType: this.korea.nativeElement.checked ? 1 : 2
       }
-      this.userService.signup(data).subscribe(
-        result => {
-          console.log(result)
-        }, err => {
-          console.log(err)
-        }, () => console.log('signup finish')
-      );
+      this.userService.signup(data);
     }
   }
 
