@@ -23,10 +23,11 @@ public class RedisSessionConfig {
 	@Bean
 	public JedisConnectionFactory connectionFactory(){
 
-		JedisConnectionFactory connectionFactory = new JedisConnectionFactory(new RedisStandaloneConfiguration(redis.get("host")));
-		connectionFactory.setDatabase(USER_INFO);
+		RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
+		redisStandaloneConfiguration.setHostName(redis.get("host"));
+		redisStandaloneConfiguration.setDatabase(USER_INFO);
 
-		return connectionFactory;
+		return new JedisConnectionFactory(redisStandaloneConfiguration);
 	}
 
 	@Bean
