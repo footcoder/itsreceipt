@@ -26,6 +26,9 @@ public class ReceiptController extends BaseController{
 		return success().addAttribute("results", receiptService.receiptList());
 	}
 
+	/**
+	 * 영수증 등록
+	 */
 	@PostMapping(value = "create")
 	public ModelMap createReceipt(){
 
