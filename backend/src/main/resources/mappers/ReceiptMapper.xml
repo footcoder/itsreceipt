@@ -11,6 +11,7 @@
         from receipt a
               join users b on a.userSeq = b.seq
               join receipt_detail c on a.seq = c.receiptSeq
+        limit {limit}, {offset}
     </select>
 
 

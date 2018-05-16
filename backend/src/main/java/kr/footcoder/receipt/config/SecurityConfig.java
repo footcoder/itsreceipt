@@ -45,20 +45,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 
 		http.formLogin()
-				.permitAll().loginProcessingUrl("/user/sign-in")
-				.usernameParameter("email")
-				.passwordParameter("password")
-				.successHandler(authSuccessHandler)
-				.failureHandler(authFailureHandler)
+					.permitAll().loginProcessingUrl("/user/sign-in")
+					.usernameParameter("email")
+					.passwordParameter("password")
+					.successHandler(authSuccessHandler)
+					.failureHandler(authFailureHandler)
 				.and()
-				.logout()
-				.permitAll()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-				.logoutSuccessHandler(logoutSuccessHandler)
+					.logout()
+					.permitAll()
+					.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+					.logoutSuccessHandler(logoutSuccessHandler)
 				.and()
-				.sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.NEVER)
-				.maximumSessions(1);
+					.sessionManagement()
+					.sessionCreationPolicy(SessionCreationPolicy.NEVER)
+					.maximumSessions(1);
 
 
 		http.authorizeRequests()
