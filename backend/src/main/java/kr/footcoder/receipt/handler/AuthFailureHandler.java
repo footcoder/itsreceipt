@@ -22,7 +22,7 @@ public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler{
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException exception) throws IOException, ServletException {
 
-        log.error("로그인 실패 onAuthenticationFailure");
+        log.debug("로그인 실패 onAuthenticationFailure");
         JSONObject jsonObject = new JSONObject();
 
 
@@ -35,7 +35,7 @@ public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler{
 
             jsonObject.put("results", error);
         } catch (JSONException e) {
-            log.error("JSONException : {}", e.getMessage());
+            log.debug("JSONException : {}", e.getMessage());
         }
 
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

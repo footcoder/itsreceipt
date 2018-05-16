@@ -36,7 +36,7 @@ public class TokenFilter extends GenericFilterBean {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		log.error("토큰 검증 custom filter");
+		log.debug("토큰 검증 custom filter");
 
 		HttpServletRequest httpRequest = this.getAsHttpRequest(request);
 

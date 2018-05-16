@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Optional;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 
 @Slf4j
@@ -29,9 +32,10 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
 	public void onAuthenticationSuccess(HttpServletRequest request,
 	                                    HttpServletResponse response, Authentication authentication) throws IOException {
 
-		log.error("로그인 성공 onAuthenticationSuccess");
+		log.debug("로그인 성공 onAuthenticationSuccess");
 
 		User user = SessionUserUtil.getUser();
+		checkNotNull(user, "user must not null");
 
 		// 세션 redis 저장
 		userInfoRepository.initUserInfo(request.getSession().getId(), user.getEmail());
@@ -44,7 +48,7 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
 			results.put("token", request.getSession().getId());
 			jsonObject.put("results", results);
 		} catch (JSONException e) {
-			log.error("JSONException : {}", e.getMessage());
+			log.debug("JSONException : {}", e.getMessage());
 		}
 
 		response.setStatus(HttpServletResponse.SC_OK);

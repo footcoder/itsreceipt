@@ -8,16 +8,19 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @Slf4j
 public class SessionUserUtil {
 
+	private SessionUserUtil(){}
+
 	public static User getUser() {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-		log.error("authentication.getName() :{}", authentication.getName());
-		log.error("authentication.getPrincipal(): {}", authentication.getPrincipal());
+		log.debug("authentication.getName() :{}", authentication.getName());
+		log.debug("authentication.getPrincipal(): {}", authentication.getPrincipal());
 
-		if( authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getName()) ){
+		if( authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getName()) ){
 			return (User) authentication.getPrincipal();
 		}
+
 		return null;
 	}
 

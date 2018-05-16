@@ -14,7 +14,7 @@ public class BaseController {
 
     @ExceptionHandler(LogicException.class)
     public ModelMap handleLogicException(LogicException ex) {
-        log.debug(ex.getMessage());
+        log.error(ex.getMessage());
         return error(ex.getErrorCode());
     }
 
