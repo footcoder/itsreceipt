@@ -1,10 +1,11 @@
 package kr.footcoder.receipt.service;
 
+import kr.footcoder.receipt.domain.ReceiptParam;
 import org.springframework.ui.ModelMap;
 
 public interface ReceiptService {
 
-    ModelMap receiptList();
+    ModelMap receipts(ReceiptParam receiptParam);
 
     boolean createReceipt();
 }

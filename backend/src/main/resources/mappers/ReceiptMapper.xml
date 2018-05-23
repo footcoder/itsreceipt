@@ -2,21 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.footcoder.receipt.mapper.ReceiptMapper">
 
-    <select id="receiptList" parameterType="ReceiptParam" resultType="Receipt">
+    <select id="receiptCnt" parameterType="ReceiptParam" resultType="Integer">
+        select count(*) as cnt
+        from receipt a
+                join users          b on a.userSeq = b.seq
+                join receipt_detail c on a.seq = c.receiptSeq
+                join receipt_tags   d on a.seq = d.receiptSeq
+        <where>
+            <if test='tag != null and tag.equals("")'>
+                d.tag = #{tag}
+            </if>
+        </where>
+    </select>
+
+    <select id="receipts" parameterType="ReceiptParam" resultType="Receipt">
         select
               a.createDate,
               a.seq,
               a.usedDate,
               b.email
         from receipt a
-              join users b on a.userSeq = b.seq
+              join users          b on a.userSeq = b.seq
               join receipt_detail c on a.seq = c.receiptSeq
+              join receipt_tags   d on a.seq = d.receiptSeq
+        <where>
+            <if test='tag != null and tag.equals("")'>
+                d.tag = #{tag}
+            </if>
+        </where>
         limit {limit}, {offset}
     </select>
 
 
-    <insert id="createReceipt" parameterType="ReceiptParam">
-
+    <insert id="createReceipt" parameterType="ReceiptParam" useGeneratedKeys="true" keyProperty="seq">
+      insert into receipt
+      ()
     </insert>
 
 </mapper>

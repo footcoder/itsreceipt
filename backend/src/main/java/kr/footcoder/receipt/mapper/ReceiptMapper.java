@@ -1,6 +1,7 @@
 package kr.footcoder.receipt.mapper;
 
 import kr.footcoder.receipt.domain.Receipt;
+import kr.footcoder.receipt.domain.ReceiptParam;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +11,9 @@ import java.util.List;
 @Mapper
 public interface ReceiptMapper {
 
-    List<Receipt> receiptList();
+    List<Receipt> receipts(ReceiptParam receiptParam);
+
+    Integer receiptCnt(ReceiptParam receiptParam);
 
     int createReceipt();
 }
