@@ -24,7 +24,6 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public UserDetails loadUserByUsername(String email){
 
@@ -48,7 +47,7 @@ public class UserServiceImpl implements UserService {
     public boolean signupUser(SignupParam signupParam) {
 
         // 패스워드 암호화
-        signupParam.setPassword(bCryptPasswordEncoder.encode(signupParam.getPassword()));
+        signupParam.setPassword(new BCryptPasswordEncoder().encode(signupParam.getPassword()));
 
         int result = userMapper.getExistUser(signupParam.getEmail());
 

@@ -31,7 +31,7 @@ import java.io.UnsupportedEncodingException;
 @AllArgsConstructor
 public class TokenFilter extends GenericFilterBean {
 
-	private final UserService userServiceImpl;
+	private final UserService userService;
 	private final UserInfoRepository userInfoRepository;
 
 	@Override
@@ -51,7 +51,7 @@ public class TokenFilter extends GenericFilterBean {
 				printError(response, ErrorCode.ERR0004);
 			} else {
 				//token 값 키로 유저 조회
-				User user = (User) userServiceImpl.loadUserByUsername(email);
+				User user = (User) userService.loadUserByUsername(email);
 
 				if (user != null) {
 					UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
