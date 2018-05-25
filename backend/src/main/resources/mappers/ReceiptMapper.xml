@@ -33,11 +33,22 @@
         limit {limit}, {offset}
     </select>
 
-<!--
+
 
     <insert id="createReceipt" parameterType="ReceiptParam" useGeneratedKeys="true" keyProperty="seq">
-
+      insert into receipt
+      (
+        userSeq
+        , usedDate
+        , createDate
+      )
+      values
+      (
+        #{userSeq}
+        , #{usedDate}
+        , now()
+      )
     </insert>
--->
+
 
 </mapper>

@@ -7,5 +7,5 @@ public interface ReceiptService {
 
     ModelMap receipts(ReceiptParam receiptParam);
 
-    boolean createReceipt();
+    boolean createReceipt(ReceiptParam receiptParam);
 }

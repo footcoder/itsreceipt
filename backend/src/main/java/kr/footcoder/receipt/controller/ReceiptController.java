@@ -1,8 +1,10 @@
 package kr.footcoder.receipt.controller;
 
 import kr.footcoder.receipt.domain.ReceiptParam;
+import kr.footcoder.receipt.domain.User;
 import kr.footcoder.receipt.enumclass.ErrorCode;
 import kr.footcoder.receipt.service.ReceiptService;
+import kr.footcoder.receipt.util.SessionUserUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.ModelMap;
@@ -37,7 +39,10 @@ public class ReceiptController extends BaseController {
 	@PostMapping(value = "/create")
 	public ModelMap createReceipt(@RequestBody ReceiptParam receiptParam) {
 
-		if (receiptService.createReceipt()) {
+		receiptParam.setUserSeq(SessionUserUtil.getUser().getSeq());
+
+
+		if (receiptService.createReceipt(receiptParam)) {
 			return success();
 		}
 

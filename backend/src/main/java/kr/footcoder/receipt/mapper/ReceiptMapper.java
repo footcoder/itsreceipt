@@ -15,4 +15,5 @@ public interface ReceiptMapper {
 
     Integer receiptCnt(ReceiptParam receiptParam);
 
+	int createReceipt(ReceiptParam receiptParam);
 }
