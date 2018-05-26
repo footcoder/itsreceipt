@@ -6,8 +6,7 @@
         select count(*) as cnt
         from receipt a
                 join users          b on a.userSeq = b.seq
-                join receipt_detail c on a.seq = c.receiptSeq
-                join receipt_tags   d on a.seq = d.receiptSeq
+                join receipt_tags   c on a.seq = c.receiptSeq
         <where>
             <if test='tag != null and tag.equals("")'>
                 d.tag = #{tag}
@@ -23,19 +22,19 @@
               b.email
         from receipt a
               join users          b on a.userSeq = b.seq
-              join receipt_detail c on a.seq = c.receiptSeq
-              join receipt_tags   d on a.seq = d.receiptSeq
+              join receipt_tags   c on a.seq = c.receiptSeq
         <where>
             <if test='tag != null and tag.equals("")'>
-                d.tag = #{tag}
+                c.tag = #{tag}
+            </if>
+            <if test='period != null and period.equals("")'>
+
             </if>
         </where>
-        limit {limit}, {offset}
+        limit #{limit}, #{offset}
     </select>
 
-
-
-    <insert id="createReceipt" parameterType="ReceiptParam" useGeneratedKeys="true" keyProperty="seq">
+    <insert id="createReceipt" parameterType="ReceiptParam">
       insert into receipt
       (
         userSeq
@@ -48,6 +47,22 @@
         , #{usedDate}
         , now()
       )
+        <selectKey  resultType="int" keyProperty="seq" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <insert id="createReceiptTags" parameterType="ReceiptParam">
+        insert into receipt_tags
+        (
+            receiptSeq
+            , tag
+        )
+        values
+        (
+            #{receiptSeq}
+            , #{tag}
+        )
     </insert>
 
 

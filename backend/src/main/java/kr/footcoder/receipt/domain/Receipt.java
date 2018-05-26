@@ -8,4 +8,7 @@ public class Receipt {
     private String createDate;
     private String usedDate;
     private String email;
+
+    private Integer greatCnt;
+    private Integer stupidCnt;
 }

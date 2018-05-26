@@ -29,15 +29,5 @@ public class UserController extends BaseController {
 
         return success();
     }
-/*
-
-    @PostMapping(value = "/sign-in")
-    public String signinUser(HttpServletRequest request) {
-
-
-        return "hello world";
-    }
-*/
-
 
 }
