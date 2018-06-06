@@ -16,10 +16,12 @@ export class MainComponent implements OnInit {
   }
 
   receiptForm() {
-    if (this.userService.authenticated)
-      this.router.navigateByUrl("write");
-    else
-      this.router.navigateByUrl("sign-in");
+    this.router.navigateByUrl("write");
+    // if (this.userService.authenticated)
+    //
+    //   this.router.navigateByUrl("write");
+    // else
+    //   this.router.navigateByUrl("sign-in");
   }
 
   viewReceipt(id) {

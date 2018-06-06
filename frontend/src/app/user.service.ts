@@ -16,14 +16,17 @@ export class UserService {
   }
 
   signIn(data) {
-    // let headers = new HttpHeaders();
+    let options = {
+      headers: new HttpHeaders().set("Content-Type", "application/x-www-form-urlencoded")
+    }
     // headers.append("Authorization", "Basic " + btoa(data.username + ":" + data.password));
-    this.http.post('http://footcoder.niee.kr:8080/user/sign-in',data)
+
+    this.http.post('http://footcoder.niee.kr:8080/user/sign-in', "email="+ data.email +"&password="+ data.password, options)
       .subscribe(
         (response:any) => {
-          if(response.status == 'T' && response.result.token != null){
+          if(response.status == 'T'){
             this.authenticated = true;
-            this.token = response.token;
+            this.token = response.results.token;
             this.router.navigateByUrl('main');
           }else if(response.status == 'F'){
             alert(response.result.message);
